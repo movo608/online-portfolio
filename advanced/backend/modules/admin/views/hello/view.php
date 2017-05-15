@@ -29,9 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'section:ntext',
+            'section' => [
+                'attribute' => 'section',
+                'value' => function ($value) {
+                    return strtoupper(\backend\modules\admin\models\LandingPageValidSections::find()
+                            ->where(['id' => $value->id])
+                            ->one()
+                            ->value);
+                }
+            ],
+
             'content_text',
-            'content_image',
+
+            'content_image' => [
+                'value' => $model->content_image,
+                'attribute' => 'content_image',
+                'format' => ['image', ['class' => ['col-md-5']]]
+            ]
         ],
     ]) ?>
 

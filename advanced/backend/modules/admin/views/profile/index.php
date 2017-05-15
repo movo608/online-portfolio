@@ -74,7 +74,7 @@ $this->title = $user->first_name . '\'s Profile';
 							
 							<?= $form->field($user, 'email')->textInput(['maxLength' => true, 'type' => 'email']) ?>
 							
-							<?= $form->field($user, 'image')->textInput([]) ?>
+							<?= $form->field($user, 'image')->textInput([]) ?> 
 							
 							<div class="form-group">
 								<?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>

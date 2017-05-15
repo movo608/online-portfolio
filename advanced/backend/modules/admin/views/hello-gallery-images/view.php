@@ -29,7 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'path:ntext',
+            'path:ntext' => [
+                'value' => $model->path,
+                'attribute' => 'path',
+                'format' => ['image', ['class' => ['col-md-5']]]
+            ]
         ],
     ]) ?>
 

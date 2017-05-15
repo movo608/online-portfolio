@@ -28,13 +28,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'image',
-            'thumbnail_image',
+        
+            //'id',
+
+            'image' => [
+                'value' => $model->image,
+                'attribute' => 'image',
+                'format' => ['image', ['class' => ['col-md-5']]]
+            ],
+
+            'thumbnail_image' => [
+                'value' => $model->thumbnail_image,
+                'attribute' => 'thumbnail_image',
+                'format' => ['image', ['class' => ['col-md-5']]]
+            ],
+
             'name',
             'description:ntext',
-            'category_id',
-        ],
+
+            'category_id' => [
+                'attribute' => 'category_id',
+                'value' => function ($value) {
+                    return \backend\modules\admin\models\PhotoCategories::find()
+                                ->where(['id' => $value->category_id])
+                                ->one()
+                                ->name;
+                }
+            ]
+        ]
     ]) ?>
 
 </div>

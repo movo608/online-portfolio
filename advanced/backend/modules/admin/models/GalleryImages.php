@@ -3,6 +3,7 @@
 namespace backend\modules\admin\models;
 
 use Yii;
+use backend\modules\admin\models\PhotoCategores;
 
 /**
  * This is the model class for table "gallery_images".
