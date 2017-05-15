@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\modules\admin\models\LandingPageValidSections;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\admin\models\LandingPage */
@@ -14,7 +15,7 @@ use backend\modules\admin\models\LandingPageValidSections;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'section')->dropDownList(
-    	LandingPageValidSections::find()->all()
+    	ArrayHelper::map(LandingPageValidSections::find()->all(), 'id', 'value')
     ) ?>
 
     <?= $form->field($model, 'content_text')->textInput(['maxlength' => true]) ?>

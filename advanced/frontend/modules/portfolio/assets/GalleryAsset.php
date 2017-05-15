@@ -3,6 +3,7 @@
 namespace frontend\modules\portfolio\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 class GalleryAsset extends AssetBundle {
 	
@@ -16,12 +17,13 @@ class GalleryAsset extends AssetBundle {
 	];
 	
 	public $js = [
-		'js/jquery.min.js',
 		'js/skel.min.js',
 		'js/main.js'
 	];
 	
-	public $jsOptions = [];
+	public $jsOptions = [
+		'position' => View::POS_END
+	];
 	
 	public $depends = [
 		'yii\web\YiiAsset',

@@ -6,10 +6,9 @@ use yii\web\AssetBundle;
 use yii\web\View;
 
 /**
- * Main backend application asset bundle.
+ * Main backend layout application asset bundle.
  */
-class AppAsset extends AssetBundle
-{
+class AppAsset extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
@@ -24,16 +23,21 @@ class AppAsset extends AssetBundle
     public $js = [
     	'plugins/jQuery/jquery-2.2.3.min.js',
     	'bootstrap/js/bootstrap.min.js',
+        'dist/js/apiCall.js',
     	'plugins/fastclick/fastclick.js',
+        'dist/js/app.min.js',
     	'plugins/sparkline/jquery.sparkline.min.js',
     	'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
     	'plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
     	'plugins/slimScroll/jquery.slimscroll.min.js',
     	'plugins/chartjs/Chart.min.js',
     	'dist/js/pages/dashboard2.js',
-    	'dist/js/demo.js',
-    	'dist/js/app.min.js',
+        'dist/js/demo.js',
     	'dist/js/header.js'
+    ];
+
+    public $jsOptions = [
+        'position' => View::POS_HEAD
     ];
     
     public $depends = [
@@ -41,8 +45,14 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
     ];
     
+    /*
+    *
+    * inits the jsOptions array inefficiently
+    *
     public function init() {
-    	$this->jsOptions['position'] = View::POS_END;
+    	$this->jsOptions['position'] = View::POS_BEGIN;
     	parent::init();
     }
+    *
+    */
 }

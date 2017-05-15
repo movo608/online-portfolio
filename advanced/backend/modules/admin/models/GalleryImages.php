@@ -49,7 +49,7 @@ class GalleryImages extends \yii\db\ActiveRecord
             'thumbnail_image' => 'Thumbnail Image',
             'name' => 'Name',
             'description' => 'Description',
-            'category_id' => 'Category ID',
+            'category_id' => 'Category',
         ];
     }
 }

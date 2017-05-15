@@ -4,13 +4,27 @@
 /* @var $content string */
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use common\models\User;
 
 AppAsset::register($this);
 
 $user = User::find()->where(['id' => Yii::$app->user->id])->one();
+
+$seen_messages = \backend\modules\admin\models\SeenMessages::find()->all();
+
+$counter = 0;
+
+foreach ($seen_messages as $message) {
+	if (! $message->is_seen) {
+		$counter++;
+	}
+}
+
+if (!$counter) {
+	$counter = 'None';
+}
+
 ?>
 <?php $this->beginPage()?>
 <!DOCTYPE html>
@@ -38,6 +52,21 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
 				<!-- Navbar Right Menu -->
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
+						<li class="dropdown messages-menu">
+							<?php
+							if ($counter) {
+								echo Html::a('<i class="fa fa-envelope-o"></i><span class="new_messages_header label label-success">'
+									. $counter 
+									.'</span>', 
+									['/admin/hello-message']);
+							} else {
+								echo Html::a('<i class="fa fa-envelope-o"></i><span class="new_messages_header label label-danger">'
+									. $counter 
+									.'</span>', 
+									['/admin/hello-message']);
+							}
+							?>
+						</li>
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
@@ -56,7 +85,7 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
 									</p></li>
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
+										<?= Html::a('Profile', ['/admin/profile'], ['class' => 'btn btn-default btn-flat']) ?>
 									</div>
 									<div class="pull-right">
 									
@@ -99,7 +128,10 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
 					</a>
 						<ul class="treeview-menu">
 							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Landing Page', ['/admin/hello']) ?></li>
-							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Portfolio Gallery', ['/admin/gallery']) ?></li>
+							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Gallery Categories', ['/admin/gallery-category']) ?></li>
+							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Gallery Images', ['/admin/gallery-photos-in-category']) ?></li>
+							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Hello Page Gallery', ['/admin/hello-gallery-images']) ?></li>
+							<li><?= Html::a('<i class="fa fa-circle-o text-red"></i> Messages (<span id="new_messages">' . $counter .'</span> unread)', ['/admin/hello-message']) ?></li>
 						</ul></li>
 					<li class="active treeview"><a href="#"> <i class="fa fa-cogs"
 							aria-hidden="true"></i> <span>Other</span> <span
@@ -108,11 +140,11 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><?= Html::a('<i class="fa fa-circle-o text-yellow"></i> Profile Settings</li>', ['/admin/profile'])?>
-					
-						
-						</ul></li>
-				</ul>
+							<li>
+								<?= Html::a('<i class="fa fa-circle-o text-yellow"></i> Profile Settings</li>', ['/admin/profile'])?>
+							</li>
+						</ul>
+					</ul>
 			</section>
 			<!-- /.sidebar -->
 		</aside>

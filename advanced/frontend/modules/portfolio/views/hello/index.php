@@ -1,9 +1,9 @@
 <?php
 use frontend\modules\portfolio\assets\HelloAsset;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 HelloAsset::register($this);
-
 ?>
 
 <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -32,11 +32,7 @@ HelloAsset::register($this);
 			<h2>Hey.</h2>
 		</header>
 		<p>
-			Welcome to <strong>Big Picture</strong> a responsive site template
-			designed by <a href="https://html5up.net">HTML5 UP</a>, built on <a
-				href="http://skel.io">Skel</a>, and released for free under the <a
-				href="https://html5up.net/license">Creative Commons Attribution
-				license</a>.
+			<?= $section_header->content_text ?>
 		</p>
 		<footer>
 			<a href="#one" class="button style2 down">More</a>
@@ -50,10 +46,9 @@ HelloAsset::register($this);
 		<header>
 			<h2>What I Do</h2>
 		</header>
-		<p>Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore
-			condimentum. Fusce blandit ultrices sapien, in accumsan orci rhoncus
-			eu. Sed sodales venenatis arcu, id varius justo euismod in. Curabitur
-			egestas consectetur magna.</p>
+		<p>
+			<?= $section_work->content_text ?>
+		</p>
 	</div>
 	<a href="#two" class="button style2 down anchored">Next</a>
 </section>
@@ -64,10 +59,9 @@ HelloAsset::register($this);
 		<header>
 			<h2>Who I Am</h2>
 		</header>
-		<p>Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore
-			condimentum. Fusce blandit ultrices sapien, in accumsan orci rhoncus
-			eu. Sed sodales venenatis arcu, id varius justo euismod in. Curabitur
-			egestas consectetur magna.</p>
+		<p>
+			<?= $section_bio->content_text ?>
+		</p>
 	</div>
 	<a href="#work" class="button style2 down anchored">Next</a>
 </section>
@@ -77,38 +71,20 @@ HelloAsset::register($this);
 	<div class="content">
 		<header>
 			<h2>My Work</h2>
-			<p>Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore
-				condimentum. Fusce blandit ultrices sapien, in accumsan orci rhoncus
-				eu. Sed sodales venenatis arcu, id varius justo euismod in.
-				Curabitur egestas consectetur magna vitae.</p>
+			<p>
+				<?= $section_gallery_work->content_text ?>
+			</p>
 		</header>
 
 		<!-- Gallery  -->
 		<div class="gallery">
-			<article class="from-left">
-				<a href="images/fulls/01.jpg" class="image fit"><img
-					src="images/thumbs/01.jpg" title="The Anonymous Red" alt="" /></a>
-			</article>
-			<article class="from-right">
-				<a href="images/fulls/02.jpg" class="image fit"><img
-					src="images/thumbs/02.jpg" title="Airchitecture II" alt="" /></a>
-			</article>
-			<article class="from-left">
-				<a href="images/fulls/03.jpg" class="image fit"><img
-					src="images/thumbs/03.jpg" title="Air Lounge" alt="" /></a>
-			</article>
-			<article class="from-right">
-				<a href="images/fulls/04.jpg" class="image fit"><img
-					src="images/thumbs/04.jpg" title="Carry on" alt="" /></a>
-			</article>
-			<article class="from-left">
-				<a href="images/fulls/05.jpg" class="image fit"><img
-					src="images/thumbs/05.jpg" title="The sparkling shell" alt="" /></a>
-			</article>
-			<article class="from-right">
-				<a href="images/fulls/06.jpg" class="image fit"><img
-					src="images/thumbs/06.jpg" title="Bent IX" alt="" /></a>
-			</article>
+			<?php foreach ($hello_gallery_models as $image) { ?>
+				<article class="from-left">
+					<a href="<?= $image->path ?>" class="image fit">
+						<img src="<?= $image->path ?>" alt="Image could not be loaded"/>
+					</a>
+				</article>
+			<?php } ?>
 		</div>
 
 	</div>
@@ -119,24 +95,26 @@ HelloAsset::register($this);
 	<div class="content">
 		<header>
 			<h2>Say Hello.</h2>
-			<p>Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore
-				condimentum.</p>
+			<p>
+				<?= $section_contact_form->content_text ?>
+			</p>
 		</header>
 		<div class="box">
-			<form method="post" action="#">
-				<div class="field half first">
-					<input type="text" name="name" placeholder="Name" />
-				</div>
-				<div class="field half">
-					<input type="email" name="email" placeholder="Email" />
-				</div>
-				<div class="field">
-					<textarea name="message" placeholder="Message" rows="6"></textarea>
-				</div>
-				<ul class="actions">
-					<li><input type="submit" value="Send Message" /></li>
-				</ul>
-			</form>
+			<?= Yii::$app->session->getFlash('success'); ?>
+
+			<?php $form = ActiveForm::begin(); ?>
+
+			<?= $form->field($form_model, 'name')->textInput(['maxlength' => true]) ?>
+
+			<?= $form->field($form_model, 'email')->textInput(['maxlength' => true]) ?>
+
+			<?= $form->field($form_model, 'message')->textarea(['maxlength' => true]) ?>
+
+			<div class="form-group">
+        		<?= Html::submitButton('Submit', ['name' => 'contact-button']); ?>
+    		</div>
+
+			<?php ActiveForm::end(); ?>
 		</div>
 	</div>
 </section>

@@ -17,6 +17,23 @@ return [
 		]
 	],
     'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            /*
+            *
+            * Uncomment if application settings are available.
+            * Otherwise, default PHP7 mail() function will be used.
+            *
+            'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'port' => '587',
+            'encryption' => 'tls'
+            ]
+            */
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -41,14 +58,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        
     ],
     'params' => $params,
 ];
