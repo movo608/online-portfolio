@@ -51,7 +51,8 @@ class User extends ActiveRecord implements IdentityInterface
         	['first_name', 'string'],
         	['email', 'string'],
         	['image', 'string'],
-        	['username', 'string']
+        	['username', 'string'],
+            ['is_blocked', 'string']
         ];
     }
     /**

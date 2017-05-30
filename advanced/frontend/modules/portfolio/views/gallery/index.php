@@ -11,7 +11,7 @@ use yii\helpers\Html;
 <?php foreach ($categories_models as $category) { ?>
 
 	Name: <?= $category->name ?> <br>
-	Image: <?= $category->image ?>
+	<?= Html::img($category->image, ['class' => 'col-md-3']) ?>
 	Photos: <?= Html::a('Next', ['gallery/category/?id=' . $category->id]) ?>
 
 <?php } ?>

@@ -28,9 +28,9 @@ class LandingPage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['section', 'content_text', 'content_image'], 'required'],
+            [['section', 'content_text'], 'required'],
             [['section'], 'string'],
-            [['content_text', 'content_image'], 'string', 'max' => 256],
+            [['content_text'], 'string', 'max' => 256],
         ];
     }
 

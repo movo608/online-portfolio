@@ -20,15 +20,11 @@ $this->title = 'Landing Page';
 				<div class="landing-page-index">
 
 					<br>
-
-					  <p>
-				        <?= Html::a('Create Landing Page Section Component', ['create'], ['class' => 'btn btn-success']) ?>
-				    </p>
             
-				    <?= GridView::widget([
+			<?= GridView::widget([
 
               'dataProvider' => $dataProvider,
-              'filterModel' => $searchModel,
+              
               'columns' => [
                 [ 'class' => 'yii\grid\SerialColumn' ],
 
@@ -38,19 +34,18 @@ $this->title = 'Landing Page';
                   'attribute' => 'section',
                   'value' => function ($value) {
                     return strtoupper(\backend\modules\admin\models\LandingPageValidSections::find()
-                            ->where(['id' => $value->id])
-                            ->one()
-                            ->value);
-                  }
+                                ->where(['id' => $value->id])
+                                ->one()->value);
+                    }
                 ],
 
                 'content_text',
 
-                'content_image' => [
+                /*'content_image' => [
                   'value' => 'content_image',
                   'attribute' => 'content_image',
                   'format' => ['image', ['class' => ['col-md-6']]]
-                ],
+                ],*/
 
                 [ 'class' => 'yii\grid\ActionColumn' ] 
               ]
